@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SLURM_VERSION=18.08.3
+SLURM_VERSION=20.11.9
 set -x
 
 # Install munge
@@ -23,12 +23,12 @@ if [ ! -f /opt/slurm/sbin/slurmctld ]; then
     cd slurm-${SLURM_VERSION}
     ./configure --prefix=/opt/slurm --sysconfdir=/opt/slurm/etc
     make
-    make install
-    mkdir /opt/slurm/etc
-    install -D -m644 etc/slurmctld.service /opt/slurm/etc/
-    install -D -m644 etc/slurmd.service /opt/slurm/etc/
-    systemctl daemon-reload
-    cp etc/cgroup.conf.example /opt/slurm/etc/cgroup.conf
+    sudo make install
+    sudo mkdir /opt/slurm/etc
+    sudo install -D -m644 etc/slurmctld.service /opt/slurm/etc/
+    sudo install -D -m644 etc/slurmd.service /opt/slurm/etc/
+    sudo systemctl daemon-reload
+    sudo cp etc/cgroup.conf.example /opt/slurm/etc/cgroup.conf
     cp -r /opt/slurm/* /vagrant/slurm/
 fi
 
@@ -50,7 +50,7 @@ cat >/opt/slurm/etc/slurm.conf <<EOF
 # See the slurm.conf man page for more information.
 #
 ControlMachine=head
-ControlAddr=10.0.0.101
+ControlAddr=192.168.56.101
 #BackupController=
 #BackupAddr=
 # 
@@ -203,6 +203,6 @@ SlurmdDebug=3
 # 
 # 
 # COMPUTE NODES 
-NodeName=head NodeAddr=10.0.0.101 CPUs=1 State=UNKNOWN 
+NodeName=head NodeAddr=192.168.56.101 CPUs=1 State=UNKNOWN 
 PartitionName=batch Nodes=head Default=YES MaxTime=INFINITE State=UP
 EOF
