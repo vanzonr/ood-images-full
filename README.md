@@ -1,8 +1,12 @@
 # Setup
 
-    git clone https://github.com/OSC/ood-images-full.git
+    git clone https://github.com/vanzonr/ood-images-full.git
     cd ood-images-full
     vagrant plugin install vagrant-vbguest
+
+## Base image (because centos 7 is old/dead)
+
+    bash centos7_base_create.sh
 
 ## Vagrant
 
